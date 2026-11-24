@@ -1,0 +1,272 @@
+/*
+	cosmic.css: red & black celestial theme layered over Dimension's main.css.
+	Inspired by 19th-century star atlases: engraved serif capitals, thin
+	double rules, orbit lines and scattered stars.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap");
+
+:root {
+	--void: #07040a;
+	--ink: #120a0e;
+	--blood: #b3122a;
+	--ember: #e0303f;
+	--rose: #f2d6c9;
+	--bone: #efe6dc;
+	--dim: rgba(239, 230, 220, 0.6);
+	--rule: rgba(224, 48, 63, 0.55);
+}
+
+body,
+input, select, textarea {
+	font-family: "Cormorant Garamond", Georgia, serif;
+	font-size: 1.15rem;
+	color: var(--bone);
+}
+
+body {
+	background: var(--void);
+}
+
+h1, h2, h3, h4, h5, h6,
+#header nav ul li a,
+.button, input[type="submit"] {
+	font-family: "Cinzel", Georgia, serif;
+	letter-spacing: 0.22em;
+	color: var(--bone);
+}
+
+a {
+	color: var(--ember);
+	border-bottom-color: rgba(224, 48, 63, 0.4);
+}
+
+a:hover {
+	color: var(--rose);
+	border-bottom-color: transparent;
+}
+
+strong, b { color: var(--rose); }
+
+::selection { background: var(--blood); color: var(--bone); }
+
+/* ---------- Background: starfield, red nebula, orbit rings ---------- */
+
+#bg {
+	background: var(--void);
+}
+
+/* :before sits above the stars (z-index 2), so it only tints: no solid fill */
+#bg:before {
+	background:
+		radial-gradient(ellipse 60% 45% at 78% 22%, rgba(179, 18, 42, 0.30), transparent 70%),
+		radial-gradient(ellipse 55% 40% at 18% 82%, rgba(120, 10, 30, 0.35), transparent 70%) !important;
+}
+
+#header nav.use-middle:after {
+	background: var(--rule);
+}
+
+#bg:after {
+	background-image:
+		/* faint concentric star-chart rings */
+		repeating-radial-gradient(circle at 50% 50%, transparent 0 119px, rgba(224, 48, 63, 0.07) 120px, transparent 121px),
+		/* bright stars */
+		radial-gradient(1.6px 1.6px at 12% 18%, #fff, transparent),
+		radial-gradient(1.4px 1.4px at 67% 9%, #ffe9e0, transparent),
+		radial-gradient(2px 2px at 84% 61%, #fff, transparent),
+		radial-gradient(1.5px 1.5px at 33% 72%, #ffd6d6, transparent),
+		radial-gradient(1.8px 1.8px at 52% 38%, #fff, transparent),
+		radial-gradient(1.3px 1.3px at 91% 87%, #fff, transparent),
+		radial-gradient(1.6px 1.6px at 7% 92%, #ffe0e0, transparent),
+		/* small star tiles */
+		radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.85), transparent),
+		radial-gradient(1px 1px at 140px 90px, rgba(255, 220, 220, 0.7), transparent),
+		radial-gradient(1px 1px at 80px 170px, rgba(255, 255, 255, 0.6), transparent),
+		radial-gradient(1px 1px at 190px 40px, rgba(255, 255, 255, 0.5), transparent),
+		radial-gradient(1px 1px at 60px 110px, rgba(255, 180, 180, 0.6), transparent) !important;
+	background-size:
+		auto,
+		100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%,
+		230px 230px, 230px 230px, 230px 230px, 310px 310px, 310px 310px !important;
+	background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat, repeat, repeat, repeat !important;
+	background-position: center !important;
+	animation: twinkle 7s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+	from { opacity: 0.75; }
+	to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#bg:after { animation: none; }
+}
+
+/* ---------- Header ---------- */
+
+#header .logo {
+	border: double 4px var(--rule);
+	box-shadow: 0 0 1.5rem rgba(224, 48, 63, 0.35);
+	background: radial-gradient(circle, rgba(179, 18, 42, 0.25), transparent 70%);
+}
+
+#header .logo .icon:before {
+	color: var(--ember);
+	text-shadow: 0 0 0.8rem rgba(224, 48, 63, 0.7);
+}
+
+#header .content,
+#header nav ul,
+#header nav ul li,
+#header > :before {
+	border-color: var(--rule) !important;
+	background-color: transparent !important;
+}
+
+#header .content {
+	border-style: double !important;
+	border-width: 4px 0 !important;
+}
+
+#header .content h1 {
+	text-shadow: 0 0 1.5rem rgba(224, 48, 63, 0.5);
+}
+
+#header .content p {
+	font-style: italic;
+	color: var(--dim);
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	font-size: 0.85rem;
+}
+
+#header nav ul li a:hover {
+	background-color: rgba(179, 18, 42, 0.25);
+	color: var(--bone);
+}
+
+#header nav ul li a:active {
+	background-color: rgba(179, 18, 42, 0.4);
+}
+
+/* ---------- Articles (the pop-up panels) ---------- */
+
+#main article {
+	width: 72rem;
+	max-width: 100%;
+	background-color: rgba(10, 5, 8, 0.92);
+	border: 1px solid var(--rule);
+	outline: 1px solid rgba(224, 48, 63, 0.25);
+	outline-offset: 6px;
+	box-shadow: 0 0 3rem rgba(179, 18, 42, 0.25);
+}
+
+#main article .close:before {
+	background-color: rgba(179, 18, 42, 0.35);
+}
+
+#main article .close:hover:before {
+	background-color: rgba(179, 18, 42, 0.6);
+}
+
+h2.major {
+	border-bottom: double 4px var(--rule);
+	color: var(--bone);
+}
+
+/* ---------- Image gallery: 1 / 3 / 5 columns ---------- */
+
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 0.75rem;
+	margin: 0 0 2rem 0;
+}
+
+@media screen and (max-width: 1280px) {
+	.gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media screen and (max-width: 736px) {
+	.gallery { grid-template-columns: 1fr; }
+}
+
+.gallery a {
+	display: block;
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+	border: 1px solid var(--rule);
+	border-bottom: 1px solid var(--rule);
+	position: relative;
+	background: var(--ink);
+}
+
+.gallery img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: saturate(0.9) contrast(1.05);
+	transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.gallery a:hover img,
+.gallery a:focus-visible img {
+	transform: scale(1.06);
+	filter: saturate(1.1) contrast(1.1);
+}
+
+.gallery a:after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	box-shadow: inset 0 0 1.5rem rgba(7, 4, 10, 0.8);
+	pointer-events: none;
+	transition: box-shadow 0.4s ease;
+}
+
+.gallery a:hover:after,
+.gallery a:focus-visible:after {
+	box-shadow: inset 0 0 0 2px var(--ember);
+}
+
+.gallery-empty {
+	grid-column: 1 / -1;
+	text-align: center;
+	padding: 2.5rem 1rem;
+	border: 1px dashed var(--rule);
+	font-family: "Cinzel", Georgia, serif;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: var(--dim);
+	margin: 0;
+}
+
+/* ---------- Buttons ---------- */
+
+.button, input[type="submit"] {
+	box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+.button.primary, input[type="submit"].primary {
+	background-color: var(--blood);
+	box-shadow: none;
+	color: var(--bone) !important;
+}
+
+.button.primary:hover {
+	background-color: var(--ember);
+}
+
+.button:hover {
+	background-color: rgba(179, 18, 42, 0.25);
+}
+
+/* ---------- Footer ---------- */
+
+#footer .copyright {
+	color: var(--dim);
+	font-family: "Cinzel", Georgia, serif;
+	letter-spacing: 0.2em;
+}
